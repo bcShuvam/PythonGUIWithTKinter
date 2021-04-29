@@ -10,4 +10,6 @@ def myclick():
 mybutton = Button(root,text="Click Me",command=myclick,fg="#fff",bg="#2c3e50")
 mybutton.pack()
 
+mybutton = Button(root,text="Click Me",command=myclick,fg="#ffffff",bg="#1e272e").pack()
+
 root.mainloop()

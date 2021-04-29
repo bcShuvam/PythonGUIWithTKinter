@@ -7,6 +7,7 @@ for i in range(row):
 for j in range(row-1):
     print(" " * (j+2) + " *" * (row-1-j))
 
+# Practice
 # while True:
 #     user_input = int(input("press 1 for square pattern OR press 2 for rectangular pattern OR Press 0 to exit\n: "))
 #     if user_input == 0:
