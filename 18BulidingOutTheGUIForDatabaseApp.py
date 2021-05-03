@@ -13,9 +13,22 @@ c = conn.cursor()
 
 # Create Submit function for database
 def submit():
+    # CREATE a database or connect to existing one
     conn = sqlite3.connect('address_book.db')
 
+    # Create a cursor
     c = conn.cursor()
+
+    # Insert into Table
+    c.execute("INSERT INTO address VALUES(:f_name, :l_name, :address, :city, :state, :zipcode)",
+              {
+                 'f_name':f_name.get(),
+                 'l_name':l_name.get(),
+                 'address':address.get(),
+                 'city':city.get(),
+                 'state':state.get(),
+                 'zipcode':zipcode.get()
+              })
 
     # Commit Changes
     conn.commit()
@@ -31,6 +44,32 @@ def submit():
     state.delete(0,END)
     zipcode.delete(0,END)
 
+# Create query gunction
+def query():
+    # CREATE a database or connect to existing one
+    conn = sqlite3.connect('address_book.db')
+
+    # Create a cursor
+    c = conn.cursor()
+
+    # Query the database
+    c.execute("Select *,oid from address")
+    records = c.fetchall()
+    # print(records)
+
+    # Loop the results
+    print_records = ''
+    for record in records:
+        print_records += f"{str(record[0])} {str(record[1])}\n"
+
+    query_label = Label(root,text=print_records)
+    query_label.grid(row=8,column=0,columnspan=2)
+
+    # Commit Changes
+    conn.commit()
+
+    # Close Connection
+    conn.close()
 
 # Create Text Boxes
 f_name = Entry(root,width=30)
@@ -63,5 +102,9 @@ zipcodel.grid(row=5,column=0)
 # Create a submit button
 submit_button = Button(root,text="Add Record To Database",command=submit)
 submit_button.grid(row=6,column=0,columnspan=2,pady=2,padx=10,ipadx=100)
+
+# Create a Query Button
+query_button = Button(root,text="Show Records",command=query)
+query_button.grid(row=7,column=0,columnspan=2,pady=10,padx=10,ipadx=137)
 
 root.mainloop()
