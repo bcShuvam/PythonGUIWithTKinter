@@ -8,9 +8,9 @@ root.iconbitmap("images/tkinter.ico")
 root.geometry("400x400")
 
 # CREATE a database or connect to existing one
-
 conn = sqlite3.connect('address_book.db')
 
+# Create a cursor
 c = conn.cursor()
 
 # Create a table
